@@ -103,5 +103,5 @@ find $BUILD_DIR/.apt -type f -ipath '*/pkgconfig/*.pc' | xargs --no-run-if-empty
 topic "Installing fonts"
 mkdir -p $BUILD_DIR/.fonts
 ls $FONTS_DIR
-cp $FONTS_DIR/* $BUILD_DIR/.fonts/
+cp $FONTS_DIR/*.ttf $BUILD_DIR/.fonts/
 fc-cache -f $BUILD_DIR/.fonts
