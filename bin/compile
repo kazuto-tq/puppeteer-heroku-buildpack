@@ -13,6 +13,7 @@ CACHE_DIR=$2
 ENV_DIR=$3
 
 LP_DIR=`cd $(dirname $0); cd ..; pwd`
+FONTS_DIR=`cd "$LP_DIR/fonts"; pwd`
 
 function error() {
   echo " !     $*" >&2
@@ -126,3 +127,9 @@ export | grep -E -e ' (LD_LIBRARY_PATH|LIBRARY_PATH|INCLUDE_PATH|CPATH|CPPPATH|P
 
 topic "Rewrite package-config files"
 find $BUILD_DIR/.apt -type f -ipath '*/pkgconfig/*.pc' | xargs --no-run-if-empty -n 1 sed -i -e 's!^prefix=\(.*\)$!prefix='"$BUILD_DIR"'/.apt\1!g'
+
+topic "Installing fonts"
+mkdir -p $BUILD_DIR/.fonts
+ls $FONTS_DIR
+cp $FONTS_DIR/*.ttf $BUILD_DIR/.fonts/
+fc-cache -f $BUILD_DIR/.fonts
